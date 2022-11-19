@@ -90,15 +90,6 @@ if args.tab_input == None: # se presente, lettura della tabella; altrimenti crea
 else:
     tab = leggi_file(args.tab_input)
 
-# per ogni log procedere all'anonimizzazione
-for log, i in zip(lista_log, range(len(lista_log))):
-    # controlla se il nome è nella tabella; se no lo aggiunge e assegna un codice univoco
-    associazione_codice(log[1], tab)
-    # sostituisce in lista_log il nome del log con il codice indicato in tabella
-    log[1] = tab[log[1]]  # modifica il valore anche nella lista_log
-    # eliminare il campo "utente coinvolto"
-    lista_log[i] = log[0:2] + log[3:]
-
 # salvare il file di log anonimizzato e la tabella
 scrivi_file(args.file_output, lista_log)
 scrivi_file(args.tab_output, tab)
@@ -107,6 +98,7 @@ scrivi_file(args.tab_output, tab)
 # salvare la tabella (nome, codice)
 
 lista_log = leggi_file(args.file_output)
+
 
 df = pd.DataFrame(lista_log, columns=["DateTime", "IdUser", "Corso", "DataSource", "Action", "Description", "From", "IP"])
 
