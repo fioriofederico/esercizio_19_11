@@ -111,6 +111,10 @@ print(lista_log[0])
 df = pd.DataFrame(lista_log, columns=["Date", "IdUser", "Corso", "DataSource", "Action", "Description", "From", "IP", "Time"])
 
 #df = df.set_index(['IdUser', 'DateTime'], inplace=True)
-groupby = df.groupby(["Date", "IdUser"]).size()
+number_of_occurency = df.groupby(["Date", "IdUser"]).size().reset_index(name ='Total Amount')
+mean= number_of_occurency.groupby(["Date"])['Total Amount'].mean().reset_index(name ='Mean')
+max=number_of_occurency.loc[number_of_occurency['Total Amount'].idxmax()]
 
-print(groupby)
+print(number_of_occurency)
+print(max)
+print(mean)
