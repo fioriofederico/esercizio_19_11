@@ -3,7 +3,7 @@ from argparse import ArgumentParser
 import os
 
 import uuid
-
+import pandas as pd
 
 DIGITS = 16
 
@@ -102,3 +102,17 @@ for log, i in zip(lista_log, range(len(lista_log))):
 # salvare il file di log anonimizzato e la tabella
 scrivi_file(args.file_output, lista_log)
 scrivi_file(args.tab_output, tab)
+
+# Rileggi il file anonimizzato
+# salvare la tabella (nome, codice)
+
+lista_log = leggi_file(args.file_output)
+
+df = pd.DataFrame(lista_log, columns=["DateTime", "IdUser", "Corso", "DataSource", "Action", "Description", "From", "IP"])
+
+#df = df.set_index(['IdUser', 'DateTime'], inplace=True)
+df2 = df.groupby("IdUser")
+
+dataframe = [group for _, group in df2]
+
+print(dataframe)
