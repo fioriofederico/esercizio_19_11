@@ -90,6 +90,8 @@ if args.tab_input == None: # se presente, lettura della tabella; altrimenti crea
 else:
     tab = leggi_file(args.tab_input)
 
+
+
 # salvare il file di log anonimizzato e la tabella
 scrivi_file(args.file_output, lista_log)
 scrivi_file(args.tab_output, tab)
@@ -99,12 +101,16 @@ scrivi_file(args.tab_output, tab)
 
 lista_log = leggi_file(args.file_output)
 
+for i in range(len(lista_log)):
+    date, time = lista_log[i][0].split()
+    lista_log[i][0]=date
+    lista_log[i].extend([time])
+    lista_log[i][1]=('{}'.format(lista_log[i][1]))
 
-df = pd.DataFrame(lista_log, columns=["DateTime", "IdUser", "Corso", "DataSource", "Action", "Description", "From", "IP"])
+print(lista_log[0])
+df = pd.DataFrame(lista_log, columns=["Date", "IdUser", "Corso", "DataSource", "Action", "Description", "From", "IP", "Time"])
 
 #df = df.set_index(['IdUser', 'DateTime'], inplace=True)
-df2 = df.groupby("IdUser")
+groupby = df.groupby(["Date", "IdUser"]).size()
 
-dataframe = [group for _, group in df2]
-
-print(dataframe)
+print(groupby)
