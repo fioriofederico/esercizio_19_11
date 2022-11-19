@@ -1,0 +1,17 @@
+A partire da un file di log con i seguenti campi:
+
+- data
+- utente
+- contesto
+- componente
+- evento
+- descrizione
+- origine
+- indirizzo IP
+
+creare e salvare un dizionario che ha per chiavi i campi e per valori associati le liste dei valori di sicacun campo in ciascun log.
+
+Calcolare il numero di accessi medio giornaliero e la sua
+deviazione standard
+
+Calcolare altri dati aggregati del file di log
