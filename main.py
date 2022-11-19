@@ -113,8 +113,11 @@ df = pd.DataFrame(lista_log, columns=["Date", "IdUser", "Corso", "DataSource", "
 #df = df.set_index(['IdUser', 'DateTime'], inplace=True)
 number_of_occurency = df.groupby(["Date", "IdUser"]).size().reset_index(name ='Total Amount')
 mean= number_of_occurency.groupby(["Date"])['Total Amount'].mean().reset_index(name ='Mean')
+events = df.groupby(["Date", "Action"]).size().reset_index(name="MaxEvent")
+maxevent = events.loc[events['MaxEvent'].idxmax()]
 max=number_of_occurency.loc[number_of_occurency['Total Amount'].idxmax()]
 
 print(number_of_occurency)
 print(max)
 print(mean)
+print(maxevent)
